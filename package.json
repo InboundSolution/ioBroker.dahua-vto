@@ -1,0 +1,54 @@
+{
+  "name": "iobroker.dahua-vto",
+  "version": "0.0.1",
+  "description": "Dahua VTO/VTH Gegensprechanlage (Klingel-Events und Türöffner) für ioBroker",
+  "author": {
+    "name": "InboundSolution"
+  },
+  "homepage": "https://github.com/InboundSolution/ioBroker.dahua-vto",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "dahua",
+    "vto",
+    "vth",
+    "doorbell",
+    "Gegensprechanlage",
+    "Türsprechanlage",
+    "Türöffner"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/InboundSolution/ioBroker.dahua-vto"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.2.3"
+  },
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "eslint": "^8.57.1",
+    "mocha": "^10.8.2"
+  },
+  "main": "main.js",
+  "files": [
+    "admin{,/!(src)/**}/!(tsconfig|tsconfig.*|.eslintrc).json",
+    "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,jpeg,gif,woff,woff2,ttf,eot}",
+    "lib/",
+    "io-package.json",
+    "LICENSE",
+    "main.js"
+  ],
+  "scripts": {
+    "test": "npm run lint && npm run test:package && npm run test:unit",
+    "test:package": "mocha test/package --exit",
+    "test:unit": "mocha test/unit --exit",
+    "lint": "eslint main.js lib test"
+  },
+  "bugs": {
+    "url": "https://github.com/InboundSolution/ioBroker.dahua-vto/issues"
+  },
+  "readmeFilename": "README.md"
+}

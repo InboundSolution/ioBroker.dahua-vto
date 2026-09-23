@@ -1,0 +1,227 @@
+{
+  "common": {
+    "name": "dahua-vto",
+    "version": "0.0.1",
+    "news": {
+      "0.0.1": {
+        "en": "Initial release: event monitoring (doorbell, call, access), door opener control, automatic reconnection",
+        "de": "Erstveröffentlichung: Ereignisüberwachung (Klingel, Anruf, Zugang), Türöffner-Steuerung, automatische Wiederverbindung"
+      }
+    },
+    "title": "Dahua VTO/VTH Gegensprechanlage",
+    "titleLang": {
+      "en": "Dahua VTO/VTH door intercom",
+      "de": "Dahua VTO/VTH Gegensprechanlage"
+    },
+    "desc": {
+      "en": "Connects Dahua VTO door stations and VTH indoor monitors: doorbell/call/access events as states and a door opener control",
+      "de": "Bindet Dahua VTO Türkommunikation und VTH Innenstationen ein: Klingel-/Anruf-/Zugangs-Ereignisse als Datenpunkte und Steuerung des Türöffners"
+    },
+    "authors": [
+      "InboundSolution"
+    ],
+    "keywords": [
+      "dahua",
+      "vto",
+      "vth",
+      "doorbell",
+      "intercom",
+      "Türsprechanlage",
+      "Gegensprechanlage",
+      "Türöffner"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "dahua-vto.png",
+    "extIcon": "https://raw.githubusercontent.com/InboundSolution/ioBroker.dahua-vto/main/admin/dahua-vto.png",
+    "readme": "https://github.com/InboundSolution/ioBroker.dahua-vto/blob/main/README.md",
+    "loglevel": "info",
+    "type": "hardware",
+    "connectionType": "tcp",
+    "dataSource": "push",
+    "tier": 2,
+    "compact": true,
+    "materialize": true,
+    "adminUI": {
+      "config": "json"
+    }
+  },
+  "native": {
+    "host": "",
+    "port": 5000,
+    "username": "admin",
+    "password": "",
+    "channel": 1,
+    "doorIndex": 0,
+    "shortNumber": 1,
+    "reconnectInterval": 30,
+    "requestTimeout": 10,
+    "doorbellEventCodes": "BackKeyLight, AlarmLocal",
+    "createEventStates": true
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "device",
+      "type": "channel",
+      "common": {
+        "name": "Geräteinformationen"
+      },
+      "native": {}
+    },
+    {
+      "_id": "device.deviceType",
+      "type": "state",
+      "common": {
+        "name": "Gerätetyp",
+        "type": "string",
+        "role": "info.name",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "device.serialNumber",
+      "type": "state",
+      "common": {
+        "name": "Seriennummer",
+        "type": "string",
+        "role": "info.serial",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "device.systemInfo",
+      "type": "state",
+      "common": {
+        "name": "Komplette Systeminformationen (JSON)",
+        "type": "string",
+        "role": "json",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "door",
+      "type": "channel",
+      "common": {
+        "name": "Tür / Türöffner"
+      },
+      "native": {}
+    },
+    {
+      "_id": "door.open",
+      "type": "state",
+      "common": {
+        "name": "Tür öffnen (Türöffner auslösen)",
+        "type": "boolean",
+        "role": "button",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": {
+          "de": "Auf true setzen, um den Türöffner der Türkommunikation auszulösen"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "door.status",
+      "type": "state",
+      "common": {
+        "name": "Türstatus (DoorStatus-Event)",
+        "type": "boolean",
+        "role": "sensor.door",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "doorbell",
+      "type": "channel",
+      "common": {
+        "name": "Klingel"
+      },
+      "native": {}
+    },
+    {
+      "_id": "doorbell.trigger",
+      "type": "state",
+      "common": {
+        "name": "Klingel-Trigger",
+        "type": "boolean",
+        "role": "button",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": {
+          "de": "Wird für ca. 1 Sekunde auf true gesetzt, wenn eines der konfigurierten Klingel-Ereignisse eintrifft"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "doorbell.code",
+      "type": "state",
+      "common": {
+        "name": "Ereignis-Code der letzten Klingel",
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "events",
+      "type": "channel",
+      "common": {
+        "name": "Ereignisse"
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.lastEvent.code",
+      "type": "state",
+      "common": {
+        "name": "Code des letzten Ereignisses",
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.lastEvent.data",
+      "type": "state",
+      "common": {
+        "name": "Daten des letzten Ereignisses (JSON)",
+        "type": "string",
+        "role": "json",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "events.lastEvent.time",
+      "type": "state",
+      "common": {
+        "name": "Zeitpunkt des letzten Ereignisses (ISO)",
+        "type": "string",
+        "role": "date",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    }
+  ]
+}

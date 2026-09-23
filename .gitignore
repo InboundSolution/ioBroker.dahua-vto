@@ -1,0 +1,23 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# ioBroker dev
+.iobroker/
+.tmp/
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test/Mocha
+.nyc_output/
+coverage/
+
+# Package locks werden versioniert (npm ci in CI), deshalb hier NICHT ignorieren

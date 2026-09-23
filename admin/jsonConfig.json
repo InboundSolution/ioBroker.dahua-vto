@@ -1,0 +1,154 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "connectionTab": {
+            "type": "panel",
+            "title": "connectionTab",
+            "items": {
+                "connectionHeader": {
+                    "type": "header",
+                    "size": 3,
+                    "text": "connectionHeader",
+                    "sm": 12
+                },
+                "host": {
+                    "type": "text",
+                    "label": "host",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4,
+                    "noMultiEdit": true,
+                    "validator": "data.host",
+                    "validatorNoSaveOnError": true
+                },
+                "port": {
+                    "type": "number",
+                    "label": "port",
+                    "min": 1,
+                    "max": 65535,
+                    "default": 5000,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4
+                },
+                "username": {
+                    "type": "text",
+                    "label": "username",
+                    "default": "admin",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4,
+                    "noMultiEdit": true
+                },
+                "password": {
+                    "type": "password",
+                    "label": "password",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4,
+                    "noMultiEdit": true,
+                    "repeat": true
+                },
+                "advancedHeader": {
+                    "type": "header",
+                    "size": 4,
+                    "text": "advancedHeader",
+                    "sm": 12
+                },
+                "reconnectInterval": {
+                    "type": "number",
+                    "label": "reconnectInterval",
+                    "min": 1,
+                    "default": 30,
+                    "help": "reconnectIntervalHelp",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4
+                },
+                "requestTimeout": {
+                    "type": "number",
+                    "label": "requestTimeout",
+                    "min": 1,
+                    "default": 10,
+                    "help": "requestTimeoutHelp",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4
+                }
+            }
+        },
+        "doorTab": {
+            "type": "panel",
+            "title": "doorTab",
+            "items": {
+                "doorHeader": {
+                    "type": "header",
+                    "size": 3,
+                    "text": "doorHeader",
+                    "sm": 12
+                },
+                "channel": {
+                    "type": "number",
+                    "label": "channel",
+                    "min": 1,
+                    "default": 1,
+                    "help": "channelHelp",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4
+                },
+                "doorIndex": {
+                    "type": "number",
+                    "label": "doorIndex",
+                    "min": 0,
+                    "default": 0,
+                    "help": "doorIndexHelp",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4
+                },
+                "shortNumber": {
+                    "type": "number",
+                    "label": "shortNumber",
+                    "min": 0,
+                    "default": 1,
+                    "help": "shortNumberHelp",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4
+                }
+            }
+        },
+        "eventsTab": {
+            "type": "panel",
+            "title": "eventsTab",
+            "items": {
+                "eventsHeader": {
+                    "type": "header",
+                    "size": 3,
+                    "text": "eventsHeader",
+                    "sm": 12
+                },
+                "doorbellEventCodes": {
+                    "type": "text",
+                    "label": "doorbellEventCodes",
+                    "default": "BackKeyLight, AlarmLocal",
+                    "help": "doorbellEventCodesHelp",
+                    "sm": 12,
+                    "md": 8,
+                    "lg": 6
+                },
+                "createEventStates": {
+                    "type": "checkbox",
+                    "label": "createEventStates",
+                    "default": true,
+                    "help": "createEventStatesHelp",
+                    "sm": 12,
+                    "md": 8,
+                    "lg": 6
+                }
+            }
+        }
+    }
+}
