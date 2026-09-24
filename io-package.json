@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "dahua-vto",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "news": {
+      "0.0.4": {
+        "en": "Fix: read device info from response params instead of result (device data points stayed null)",
+        "de": "Fix: Geräteinfos aus params der Antwort lesen statt aus result (Geräte-Datenpunkte blieben null)"
+      },
       "0.0.3": {
         "en": "Fix: send session field in request bodies (some firmware rejects login with 'Invalid Request' without it); login challenge details are now logged for diagnostics",
         "de": "Fix: session-Feld im Anfrage-Body senden (manche Firmware lehnt den Login sonst mit 'Invalid Request' ab); Login-Challenge wird für Diagnosezwecke protokolliert"

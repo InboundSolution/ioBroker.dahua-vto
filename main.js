@@ -85,8 +85,11 @@ class DahuaVto extends utils.Adapter {
 
         try {
             const response = await this.client.getSystemInfo();
-            const info = response && response.result;
-            if (info && typeof info === 'object') {
+            this.log.debug && this.log.debug(`getSystemInfo-Antwort: ${JSON.stringify(response)}`);
+            // Dahua liefert die Felder in params; result ist lediglich ein Statusflag (true)
+            const resultObject = response && typeof response.result === 'object' && response.result;
+            const info = (response && response.params) || resultObject || null;
+            if (info) {
                 if (typeof info.deviceType === 'string' && info.deviceType) {
                     await this.setStateChangedAsync('device.deviceType', info.deviceType, true);
                 }
