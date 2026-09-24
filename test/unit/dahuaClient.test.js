@@ -44,6 +44,72 @@ describe('lib/dahuaClient hashDahuaPassword', () => {
     });
 });
 
+describe('lib/dahuaClient Login-Flow', () => {
+    const buildResponse = (payload, sessionId) => {
+        const body = Buffer.from(JSON.stringify(payload), 'utf8');
+        const header = Buffer.alloc(DHIP_HEADER_LENGTH);
+        header.writeBigUInt64LE(DHIP_PROTOCOL_ID, 0);
+        header.writeUInt32LE(sessionId >>> 0, 8);
+        header.writeUInt32LE(0, 12);
+        header.writeBigUInt64LE(BigInt(body.length), 16);
+        header.writeBigUInt64LE(BigInt(body.length), 24);
+        return Buffer.concat([header, body]);
+    };
+
+    it('trägt session im JSON-Body und hasht das Passwort für den zweiten Login', () => {
+        const client = new DahuaClient({
+            host: '1.2.3.4',
+            username: 'admin',
+            password: 'secret',
+            log: { debug() {}, info() {}, warn() {}, error() {} },
+        });
+        const written = [];
+        client.socket = { write: (frame) => written.push(frame), destroy() {}, setKeepAlive() {} };
+        let connected = 0;
+        client.on('connected', () => {
+            connected += 1;
+        });
+
+        client._startLogin();
+        const first = JSON.parse(written[0].subarray(DHIP_HEADER_LENGTH).toString('utf8'));
+        expect(first.method).to.equal('global.login');
+        expect(first.session).to.equal(0);
+
+        client._onData(
+            buildResponse(
+                {
+                    error: { code: 268632079, message: 'UnAuthorized' },
+                    id: first.id,
+                    params: { realm: 'hid_test', random: '1234567890', encryption: 'MD5' },
+                    session: 0,
+                },
+                0,
+            ),
+        );
+
+        const second = JSON.parse(written[1].subarray(DHIP_HEADER_LENGTH).toString('utf8'));
+        expect(second.method).to.equal('global.login');
+        expect(second.session).to.equal(0);
+        expect(second.params.userName).to.equal('admin');
+        expect(second.params.password).to.equal(hashDahuaPassword('admin', 'hid_test', '1234567890', 'secret'));
+
+        client._onData(
+            buildResponse(
+                { id: second.id, result: 0, session: 7, params: { keepAliveInterval: 60 } },
+                7,
+            ),
+        );
+
+        // Nach dem Login laufen Folgeanfragen mit der zugewiesenen Session im Body
+        const third = JSON.parse(written[2].subarray(DHIP_HEADER_LENGTH).toString('utf8'));
+        expect(third.method).to.equal('eventManager.attach');
+        expect(third.session).to.equal(7);
+        expect(connected).to.equal(1);
+
+        client.destroy();
+    });
+});
+
 describe('lib/dahuaClient frame parsing', () => {
     it('zerlegt aneinandergehängte Rahmen inkl. TCP-Fragmentierung', () => {
         const client = new DahuaClient({ host: '1.2.3.4', log: { debug() {}, info() {}, warn() {}, error() {} } });

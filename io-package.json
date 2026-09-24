@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "dahua-vto",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "news": {
+      "0.0.3": {
+        "en": "Fix: send session field in request bodies (some firmware rejects login with 'Invalid Request' without it); login challenge details are now logged for diagnostics",
+        "de": "Fix: session-Feld im Anfrage-Body senden (manche Firmware lehnt den Login sonst mit 'Invalid Request' ab); Login-Challenge wird für Diagnosezwecke protokolliert"
+      },
       "0.0.2": {
         "en": "Fix: adapter process exited immediately after start (inverted start condition); added info.connection state",
         "de": "Fix: Adapter-Prozess beendete sich unmittelbar nach dem Start (Startbedingung vertauscht); Datenpunkt info.connection ergänzt"
