@@ -247,9 +247,9 @@ class DahuaVto extends utils.Adapter {
 }
 
 if (require.main === module) {
-    // Export the constructor in compact mode
-    module.exports = (options) => new DahuaVto(options);
-} else {
     // Otherwise start the instance directly
     new DahuaVto();
+} else {
+    // Export the constructor in compact mode
+    module.exports = (options) => new DahuaVto(options);
 }

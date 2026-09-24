@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "dahua-vto",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "news": {
+      "0.0.2": {
+        "en": "Fix: adapter process exited immediately after start (inverted start condition); added info.connection state",
+        "de": "Fix: Adapter-Prozess beendete sich unmittelbar nach dem Start (Startbedingung vertauscht); Datenpunkt info.connection ergänzt"
+      },
       "0.0.1": {
         "en": "Initial release: event monitoring (doorbell, call, access), door opener control, automatic reconnection",
         "de": "Erstveröffentlichung: Ereignisüberwachung (Klingel, Anruf, Zugang), Türöffner-Steuerung, automatische Wiederverbindung"
@@ -62,6 +66,19 @@
   },
   "objects": [],
   "instanceObjects": [
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "name": "Anmeldung an der Türkommunikation aktiv",
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
     {
       "_id": "device",
       "type": "channel",
